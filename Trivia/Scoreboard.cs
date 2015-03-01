@@ -175,5 +175,10 @@ namespace Trivia
                 default: break;
             }
         }
+
+        public int[] GetScores()
+        {
+            return new int[4] { Convert.ToInt32(team1Score.Text), Convert.ToInt32(team2Score.Text), Convert.ToInt32(team3Score.Text), Convert.ToInt32(team4Score.Text) };
+        }
     }
 }

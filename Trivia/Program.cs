@@ -77,7 +77,14 @@ namespace Trivia
             lastQuestionButtonSelected.Answered = true;
             lastQuestionButtonSelected = null;
 
-            if (GameOver())
+            if (NeedTieBreaker() > 0)
+            {
+                MessageBox.Show("Tiebreaker Question!");
+                questionBoard.Hide();
+                lastQuestionButtonSelected = questionBoard.TieBreaker;
+                questionForm.Show(questionBoard.TieBreaker.Question, questionBoard.TieBreaker.Answer);
+            }
+            else if (GameOver())
             {
                 SetGameResult();
             }
@@ -131,6 +138,41 @@ namespace Trivia
             }
 
             return true;
+        }
+
+        // Return 0 if GameOver() is false or if there is a winner.  Otherwise, return the number of teams 
+        // that are tied for first place.
+        private static int NeedTieBreaker()
+        {
+            if (GameOver() == false)
+            {
+                return 0;
+            }
+
+            int[] scores = scoreBoard.GetScores();
+            Array.Sort(scores);
+            Array.Reverse(scores);
+
+            // Team 0 is the winner, no tie breaker needed.
+            if (scores[0] > scores[1])
+            {
+                return 0;
+            }
+
+            // Teams 0 and 1 are tied for 1st.
+            if (scores[0] > scores[2])
+            {
+                return 2;
+            }
+
+            // Teams 0, 1, and 2 are tied for first.
+            if (scores[0] > scores[3])
+            {
+                return 3;
+            }
+
+            // Four way tie.
+            return 4;
         }
 
         // Update the background Color of all QuestionButtons to the Color of the winning Team.

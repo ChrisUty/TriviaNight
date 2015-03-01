@@ -73,7 +73,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="TriviaLib">
-      <HintPath>..\..\TriviaLib\TriviaLib\bin\Release\TriviaLib.dll</HintPath>
+      <HintPath>..\TriviaLib\bin\Release\TriviaLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

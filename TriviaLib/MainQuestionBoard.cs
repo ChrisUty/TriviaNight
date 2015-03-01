@@ -19,6 +19,7 @@ namespace TriviaLib
         // TODO: 2D array
         private QuestionButton[] questions;
         private CategoryButton[] categories;
+        private QuestionButton tieBreaker;
         private Team[] teams;
 
         #region Accessors
@@ -29,6 +30,14 @@ namespace TriviaLib
         public QuestionButton[] Questions
         {
             get { return questions; }
+        }
+
+        /// <summary>
+        /// TieBreaker accessor
+        /// </summary>
+        public QuestionButton TieBreaker
+        {
+            get { return tieBreaker; }
         }
 
         /// <summary>
@@ -86,6 +95,7 @@ namespace TriviaLib
                                              questionButton3A, questionButton3B, questionButton3C, questionButton3D, questionButton3E,
                                              questionButton4A, questionButton4B, questionButton4C, questionButton4D, questionButton4E,
                                              questionButton5A, questionButton5B, questionButton5C, questionButton5D, questionButton5E };
+            tieBreaker = new QuestionButton();
 
             try
             {
@@ -111,6 +121,14 @@ namespace TriviaLib
                     }
                 }
 
+                while (!input.IsStartElement("name")) { input.Read(); }
+                tieBreaker.Question = input.ReadString();
+
+                while (!input.IsStartElement("answer")) { input.Read(); }
+                tieBreaker.Answer = input.ReadString();
+
+                tieBreaker.Points = 50;
+                
                 input.Close();
             }
             catch (Exception e)
